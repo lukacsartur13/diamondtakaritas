@@ -1217,3 +1217,156 @@ a.big:hover { color: var(--gold); }
 
 .service__media { margin: clamp(28px, 4vw, 44px) 0; }
 .frame img { display: block; }
+
+/* =========================================================
+   29. Aranyozás – fémes felületek és finom csillogás
+   A gombok és a kiemelt feliratok lapos arany helyett
+   fémes átmenetet kapnak, végigfutó fényvisszaverődéssel.
+   ========================================================= */
+
+:root {
+  /* Gomb-felület: sötét perem → világos csúcsfény → sötét perem */
+  --gold-metal: linear-gradient(100deg,
+      #B78F44 0%, #D8BA7C 16%, #F6E7BE 38%, #DFC08A 54%,
+      #B78F44 76%, #D2B072 100%);
+  --gold-metal-bright: linear-gradient(100deg,
+      #D2B072 0%, #F3E3B9 28%, #FDF6E2 48%, #EAD3A1 70%, #D2B072 100%);
+
+  /* Szöveg-aranyozás. Világos háttéren tudatosan sötétebb az olvashatóságért. */
+  --gold-text: linear-gradient(100deg, #7A5C24 0%, #A8873C 45%, #7A5C24 100%);
+  --gold-hairline: #A8873C;
+}
+
+/* Sötét felületeken világosabb, ragyogóbb arany */
+.s-ink, .s-ink-2, .hero, .cta, .page-head, .footer, .marquee, .sticky-bar {
+  --gold-text: linear-gradient(100deg, #C09A4E 0%, #F4E4BB 42%, #D9BC80 62%, #C09A4E 100%);
+  --gold-hairline: var(--gold-lt);
+}
+
+/* ---------- Gombok ---------- */
+
+/* Csak a fő (arany) gomb kap fémes felületet – a körvonalas és a sötét
+   változat háttere marad, azok hoverre töltődnek arannyal. */
+.btn:not(.btn--outline):not(.btn--ink) {
+  background: var(--gold-metal);
+  background-size: 180% 100%;
+  background-position: 0% 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .5),
+    inset 0 -1px 0 rgba(84, 60, 12, .28),
+    0 10px 28px rgba(181, 143, 69, .28);
+  transition: color .45s var(--ease), border-color .45s var(--ease),
+              transform .5s var(--ease), background-position 1.1s var(--ease),
+              box-shadow .5s var(--ease);
+}
+.btn:not(.btn--outline):not(.btn--ink):hover {
+  background-position: 100% 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .65),
+    inset 0 -1px 0 rgba(84, 60, 12, .3),
+    0 14px 34px rgba(181, 143, 69, .42);
+}
+
+/* A fő gomb hoverre nem sötétedik, hanem fényesebb aranyra vált */
+.btn:not(.btn--outline):not(.btn--ink)::after { background: var(--gold-metal-bright); }
+.btn:not(.btn--outline):not(.btn--ink):hover,
+.btn:not(.btn--outline):not(.btn--ink):focus-visible { color: #14100A; }
+
+/* Végigfutó fénycsík */
+.btn:not(.btn--outline):not(.btn--ink)::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: 1;
+  background: linear-gradient(102deg,
+      transparent 38%, rgba(255, 255, 255, .8) 50%, transparent 62%);
+  transform: translateX(-130%) skewX(-12deg);
+  pointer-events: none;
+  animation: gold-sheen 9s var(--ease-io) infinite;
+}
+.btn:not(.btn--outline):not(.btn--ink):hover::before {
+  animation: gold-sheen-hover 1.1s var(--ease) forwards;
+}
+
+@keyframes gold-sheen {
+  0%, 82%   { transform: translateX(-130%) skewX(-12deg); }
+  92%, 100% { transform: translateX(130%) skewX(-12deg); }
+}
+@keyframes gold-sheen-hover {
+  from { transform: translateX(-130%) skewX(-12deg); }
+  to   { transform: translateX(130%) skewX(-12deg); }
+}
+
+/* A körvonalas és sötét gombok arany kitöltése is fémes */
+.btn--outline::after, .btn--ink::after { background: var(--gold-metal); }
+.btn--outline { box-shadow: none; }
+.btn--outline:hover {
+  box-shadow: 0 12px 30px rgba(181, 143, 69, .26);
+  border-color: transparent;
+}
+.btn--ink {
+  box-shadow: 0 10px 26px rgba(8, 13, 27, .22);
+}
+
+/* ---------- Aranyozott feliratok ---------- */
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .label,
+  .num,
+  .index__num,
+  .footer h2,
+  .contact-list strong,
+  thead th,
+  .service__num,
+  .panel__num,
+  .link {
+    background-image: var(--gold-text);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* A hajszálvonalak és aláhúzások currentColor helyett külön színt kapnak,
+     különben az áttetsző szöveggel együtt eltűnnének. */
+  .label::before { background: var(--gold-hairline); opacity: .75; }
+  .link::after { background: var(--gold-hairline); }
+
+  /* A nagy, dekoratív számok lassan megcsillannak */
+  .service__num, .panel__num {
+    animation: gold-drift 14s ease-in-out infinite;
+  }
+  .link:hover { animation: gold-drift 1.4s var(--ease); }
+}
+
+@keyframes gold-drift {
+  0%, 100% { background-position: 0% 0; }
+  50%      { background-position: 100% 0; }
+}
+
+/* ---------- Apró arany részletek ---------- */
+
+.progress {
+  background: linear-gradient(90deg, #A8873C, #F4E4BB 45%, #D9BC80 70%, #A8873C);
+  background-size: 200% 100%;
+  animation: gold-drift 6s ease-in-out infinite;
+}
+
+a.index__row:hover .index__arrow,
+.anchor-nav a:hover {
+  background: var(--gold-metal);
+  border-color: transparent;
+  color: #14100A;
+}
+
+.marquee__item::after { color: var(--gold-lt); }
+.hero__meta span::before { background: var(--gold-lt); box-shadow: 0 0 6px rgba(216, 188, 133, .6); }
+.frame::after { border-color: rgba(232, 208, 155, .45); }
+
+.checklist li::before { border-color: var(--gold-hairline); }
+.s-ink .checklist li::before, .s-ink-2 .checklist li::before { border-color: var(--gold-lt); }
+
+/* Csökkentett mozgás esetén nincs csillogás, csak a fémes felület marad */
+@media (prefers-reduced-motion: reduce) {
+  .btn::before, .service__num, .panel__num, .progress, .link:hover { animation: none !important; }
+}
