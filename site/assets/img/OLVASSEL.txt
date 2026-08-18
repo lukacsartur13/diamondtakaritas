@@ -1,0 +1,28 @@
+A weboldalon használt képek és logók (WebP, méretoptimalizálva).
+
+LOGÓ (forrás: T.png = fehér, T-2.png = fekete)
+  logo-feher-400 / -800          fejléc, lábléc, mobilmenü (sötét háttéren)
+  logo-fekete-400 / -800         ajánlatkérő űrlap kártyája (világos háttéren)
+  jel-feher-256 / jel-fekete-256 csak a gyémántjel, kis felületekhez
+  favicon.ico                    böngészőfül (16/32/48/64), sötétkék háttér + fehér jel
+  apple-touch-icon.png (180)     iOS kezdőképernyő
+  icon-512.png                   nagy ikon / PWA tartalék
+
+FOTÓK
+  halo-otthon-689 / -480         főoldali hero + kárpittisztítás blokk (álló, 3:4)
+  konyha-reszlet-726 / -480      főoldal „Diamond szintű tisztaság” (álló, 4:5)
+  lakastakaritas-halo-564 / -420 szolgáltatások – lakástakarítás (álló, 4:5)
+  haztakaritas-nappali-1500/-900 szolgáltatások – ház takarítás (fekvő, 3:2)
+  nagytakaritas-konyha-1600/-900 szolgáltatások – nagytakarítás (fekvő, 16:10)
+  ablakmosas-uvegfal-1024 / -640 szolgáltatások – ablakmosás (4:3-ra vágva)
+  og-diamond-takaritas-gyor.jpg  közösségi megosztás (1200x630, logóval)
+
+FONTOS, ÉLESÍTÉS ELŐTT:
+- A fotók a megrendelő által megadott fájlokból készültek. Élesítés előtt tisztázni kell
+  a felhasználási jogot (saját fotó vagy érvényes stock licenc).
+- A fotók belsőépítészeti enteriőrök, nem a vállalkozás elvégzett munkáiról készült
+  referenciák. Az alt szövegek ezért a látható enteriőrt írják le. Valós referenciafotók
+  esetén érdemes cserélni, és az alt szövegeket pontosítani.
+- Új kép esetén: WebP, két méret (srcset), width/height megadása, leíró alt szöveg,
+  a hero kivételével loading="lazy".
+- Ha vektoros (SVG) logó készül, érdemes arra váltani a PNG-ből származó WebP helyett.

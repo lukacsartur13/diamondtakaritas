@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Claude Code munkakönyvtár
+.claude/
+
+# Nyers forrásanyagok – nem kerülnek a publikus repóba.
+# (A fotók felhasználási joga még tisztázandó, a specifikáció pedig belső dokumentum.)
+*.docx
+T.png
+T-2.png
+2ec2abd4a5fd1e593bea67f0f53b884c.jpg
+653258ab6bf01d06625adf7e9025ba13.jpg
+ca6aaba7a597a5f1f1e1db28dd025f70.jpg
+f2fc280b02f21b94be3c5580c85fb03e.jpg
+Timeless-interiors-1.jpg
+ELMCleaning055KP1803260.webp
